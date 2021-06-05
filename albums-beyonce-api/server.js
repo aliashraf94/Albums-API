@@ -1,6 +1,7 @@
 const { query } = require('express');
 const express = require('express');
 const app = express();
+app.use(express.json());
 
 const albumsData = [
     {
@@ -27,6 +28,11 @@ const albumsData = [
     },
   ];
   
+  app.get("/", function (req, res) {
+    res.send("Server is runinng and ready to serve.");
+  });
+
+
 app.get("/albums", function (req, res) {
   res.send(albumsData);
 });
@@ -44,6 +50,15 @@ app.get("/albums/:albumId", (req, res) => {
         res.status(404).send()
     }
     // res.send(album)
+});
+
+app.post("/albums", function (req, res) {
+  console.log("POST /albums route");
+  const album = req.body
+  // console.log(req.body)
+  albumsData.push(album)
+  // console.log(albumsData)
+  res.send({success: true})
 });
 
 app.listen(3000, () => console.log("Server is up and running"))
