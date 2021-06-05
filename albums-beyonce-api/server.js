@@ -58,7 +58,13 @@ app.post("/albums", function (req, res) {
   // console.log(req.body)
   albumsData.push(album)
   // console.log(albumsData)
-  res.send({success: true})
+  res.status(201).send({success: true})
+});
+
+app.delete("/albums/:albumID", function (req, res) {
+  const id = req.params.albumId
+  albumsData.splice(id, 1)
+  res.status(200).send({success: true})
 });
 
 app.listen(3000, () => console.log("Server is up and running"))
